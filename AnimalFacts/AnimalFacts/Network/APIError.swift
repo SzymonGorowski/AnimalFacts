@@ -10,12 +10,12 @@ enum APIError: Error {
     
     var customDescription: String {
         switch self {
-        case .incorrectURL: return "Incorrect URL"
-        case .noInternetConnection: return "No internet connection"
-        case .invalidResponse: return "Request failed"
-        case let .unsuccessfulResponse(description): return "Response unsuccessful with error -> \(description)"
-        case let .decodingFailure(description): return "JSON Decoding Failure with error -> \(description)"
-        case let .fetchFailure(description): return "Fetch failed with error -> \(description)"
+        case .incorrectURL: return Strings.APIError.incorrectURL
+        case .noInternetConnection: return Strings.APIError.noInternetConnection
+        case .invalidResponse: return Strings.APIError.invalidResponse
+        case let .unsuccessfulResponse(description): return String(format: Strings.APIError.unsuccessfulResponse, arguments: [description])
+        case let .decodingFailure(description): return String(format: Strings.APIError.decodingFailure, arguments: [description])
+        case let .fetchFailure(description): return String(format: Strings.APIError.fetchFailure, arguments: [description])
         }
     }
 }

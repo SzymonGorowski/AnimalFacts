@@ -10,6 +10,7 @@ struct MainView: View {
             catFactVStack
             refreshButton
         }
+        .showErrorAlertWith(title: viewModel.alertTitle, message: viewModel.alertMessage, isShowing: $viewModel.showAlert)
         .task {
             await fetchData()
         }
@@ -18,14 +19,14 @@ struct MainView: View {
 
 private extension MainView {
     private var titleLabel: some View {
-        Text("Animal facts:")
+        Text(Strings.MainView.titleLabel)
             .font(.largeTitle)
             .foregroundColor(.blue)
     }
     
     private var dogFactsVStack: some View {
         VStack(spacing: 10) {
-            Text("Dog Facts:")
+            Text(Strings.MainView.dogFactsLabel)
                 .font(.headline)
             Text(viewModel.dogFacts())
                 .font(.subheadline)
@@ -35,7 +36,7 @@ private extension MainView {
     
     private var catFactVStack: some View {
         VStack {
-            Text("Cat Fact:")
+            Text(Strings.MainView.catFactLabel)
                 .font(.headline)
             Text(viewModel.catFact())
                 .font(.subheadline)
@@ -47,7 +48,7 @@ private extension MainView {
         Button {
             Task { await fetchData() }
         } label: {
-            Text("More facts")
+            Text(Strings.MainView.refreshButtonTitle)
         }
         .padding()
         .buttonStyle(.borderedProminent)
