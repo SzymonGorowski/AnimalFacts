@@ -4,8 +4,8 @@ protocol DataDownloader {
     func downloadData<T: Decodable>(type: T.Type, for urlString: String) async throws -> T
 }
 
-extension DataDownloader {
-    func downloadData<T: Decodable>(type: T.Type, for urlString: String) async throws -> T {
+final class DefaultDataDownloader: DataDownloader {
+    func downloadData<T>(type: T.Type, for urlString: String) async throws -> T where T : Decodable {
         guard let url = URL(string: urlString) else { throw APIError.incorrectURL }
         
         let (data, response) = try await URLSession.shared.data(from: url)
@@ -22,5 +22,3 @@ extension DataDownloader {
         }
     }
 }
-
-final class DefaultDataDownloader: DataDownloader { }
